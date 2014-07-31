@@ -20,17 +20,18 @@ function createServer(){
 				var query = url.parse(req.url).query;
 				if (query != null)
 					var tag = query.substr(4);
-			    console.log("Request for " + pathname + " received.");
-			    console.log("query for path is - " + query);
+			    console.log('Request for ' + pathname + ' received.');
+			    console.log('query for path is - ' + query);
 			    
 				twitter.getTweets(auth.authKey, tag, function(tweets){
-					res.writeHead(200, {"Content-Type": "application/json"});
+					res.writeHead(200, {'Content-Type': 'application/json',
+										'Access-Control-Allow-Origin': '*' });
 				    res.write(tweets + '');
 				    res.end();
 				});
 				break;
 			default: 
-				res.writeHead(401, {"Content-Type": "text/plain"});
+				res.writeHead(401, {'Content-Type': 'text/plain'});
 			    res.end('unknow path');
 		}
 	}).listen(1337);

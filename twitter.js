@@ -18,9 +18,8 @@ function getTweets(accessToken, searchString, callback) {
 
     // Set up the request
     var get_req = https.get(get_options , function(res) {
-        res.on('data', function(d) {
-//          process.stdout.write(d);
-        	tweets += d;
+        res.on('data', function(chunk) {
+        	tweets += chunk;
         });
         res.on('end', function(){
         	callback(tweets);
