@@ -3,6 +3,7 @@ var twitter = require('./twitter.js');
 var http = require('http');
 var url = require("url");
 var querystring = require('querystring');
+var instagram = require('./instagram.js');
 
 function createServer(){
 	http.createServer(function(req,res){
@@ -27,6 +28,23 @@ function createServer(){
 					res.writeHead(200, {'Content-Type': 'application/json',
 										'Access-Control-Allow-Origin': '*' });
 				    res.write(tweets + '');
+				    res.end();
+				});
+				break;
+				
+			case '/inst':
+				var query = url.parse(req.url).query;
+				var jsonQueryString = querystring.parse(query);
+				
+				var searchTerm = jsonQueryString.q;
+				
+			    console.log('Request for ' + pathname + ' received.');
+			    console.log('query for path is - ' + query);
+			    
+			    instagram.getPosts(searchTerm, function(result){
+					res.writeHead(200, {'Content-Type': 'application/json',
+										'Access-Control-Allow-Origin': '*' });
+				    res.write(result + '');
 				    res.end();
 				});
 				break;
