@@ -42,6 +42,7 @@ function getTwitterAccessKey(searchString, handleTweets) {
 }
 
 function getTweets(accessTokenJSON, searchString, callback) {
+	var tweets ='';
     // An object of options to indicate where to post to
     var get_options = {
         host: 'api.twitter.com',
@@ -60,8 +61,11 @@ function getTweets(accessTokenJSON, searchString, callback) {
     	  
         res.on('data', function(d) {
 //          process.stdout.write(d);
-          callback(d);
+          tweets += d;
         });
+        res.on('end', function(){
+        	callback(tweets);
+        })
     });
 }
 
