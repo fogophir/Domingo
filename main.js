@@ -10,7 +10,7 @@ function createServer(){
 		var pathname = url.parse(req.url).pathname;
 		res.writeHead(200, {'Content-Type': 'text/html' });
 		
-		switch (pathname)
+		switch (pathname.toLowerCase())
 		{
 			case '/':
 				res.write('<html><head></head><body>');
@@ -48,6 +48,8 @@ function createServer(){
 				    res.end();
 				});
 				break;
+			case '/searchhash':
+				// need to handle both instagram and twitter, and convert them into one joint JSON to return
 			default: 
 				res.writeHead(401, {'Content-Type': 'text/plain'});
 			    res.end('unknow path');
