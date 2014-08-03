@@ -1,4 +1,5 @@
 var https = require('https');
+var responseBuilder = require('./responsebuilder.js');
 
 function getPosts(searchString, callback) {
 	// building the query url
@@ -16,7 +17,7 @@ function getPosts(searchString, callback) {
         	instagramPostsJSON += chunk;
         });
         res.on('end', function(){
-        	callback(instagramPostsJSON);
+        	callback(responseBuilder.getResponseJSONFromInstagramResponse(instagramPostsJSON));
         })
 	});
 }
