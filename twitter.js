@@ -1,5 +1,3 @@
-var CONSUMER_KEY = "Wdtb2rP0i2EmljPEw70Cxkd2G";
-var CONSUMER_SECRET = "OoMn5BMqaZGukB80sMi4ObPZzAqIA5ffHSEuTrVQhueCzGLIhK";
 var responseBuilder = require('./responsebuilder.js');
 
 var https = require('https');
@@ -9,8 +7,8 @@ function getTweets(accessToken, searchString, callback) {
 	// An object of options to indicate where to post to
 	var get_options = {
 		host : 'api.twitter.com',
-		path : '/1.1/search/tweets.json?q=' + searchString
-				+ '&result_type=recent&count=10&locale=il',
+		path : '/1.1/search/tweets.json?q=%23' + searchString
+				+ '&result_type=recent&count=10',
 		port : '443',
 		method : 'GET',
 		headers : {
