@@ -48,7 +48,7 @@ function searchHashTag(req, res) {
 	var query = url.parse(req.url).query;
 	var jsonQueryString = querystring.parse(query);
 
-	var searchTerm = jsonQueryString.q;
+	var searchTerm = jsonQueryString;
 
 	// Runs in parallel
 	sync.fiber(function() {
@@ -78,7 +78,9 @@ function getInstagramInfo(query, cb) {
 
 	console.log('Instagram: query for path is - ' + query);
 
-	instagram.getPosts(query, function(result) {
+	// TODO - send query object instead of query.q
+	// 		  Add geoLocation handling in Instagram 
+	instagram.getPosts(query.q, function(result) {
 		cb(null, result);
 	});
 }

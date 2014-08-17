@@ -2,12 +2,24 @@ var responseBuilder = require('./responsebuilder.js');
 
 var https = require('https');
 
-function getTweets(accessToken, searchString, callback) {
+function getTweets(accessToken, searchParams, callback) {
 	var tweets = '';
+	var queryParams = '';
+	
+	// Build query params for twitter
+	if (searchParams.hasOwnProperty('q')) {
+		queryParams = 'q=%23' + searchParams.q;
+	}
+	// Build geolocation param if needed
+	// TODO - allow custom radius 
+	if (searchParams.hasOwnProperty('lat')) {
+		queryParams += '&geocode=' + searchParams.lat + '%2C' + searchParams.lng + '%2C15km';
+	}
+	
 	// An object of options to indicate where to post to
 	var get_options = {
 		host : 'api.twitter.com',
-		path : '/1.1/search/tweets.json?q=%23' + searchString
+		path : '/1.1/search/tweets.json?' + queryParams
 				+ '&result_type=recent&count=10',
 		port : '443',
 		method : 'GET',
