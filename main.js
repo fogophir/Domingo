@@ -59,7 +59,7 @@ function searchHashTag(req, res) {
 		});
 
 		var results = sync.await();
-		// results now contains [{instagram data},{twitter data}] - noth arrays.
+		// results now contains [{instagram data},{twitter data}] - both arrays.
 		// need to join them into one array
 		var finalResults = results[0].concat(results[1]);
 		
