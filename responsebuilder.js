@@ -52,6 +52,12 @@ function getResponseJSONFromInstagramResponse(strInstagramResponse) {
 		singleResponseObj.LikesCount = currentItem.likes.count;
 		singleResponseObj.RetweetCount = null;
 
+		// Mock marker
+		singleResponseObj.Marker = {};
+		singleResponseObj.Marker.latitude = null;
+		singleResponseObj.Marker.longitude = null;
+		singleResponseObj.Marker.title = null;
+		
 		// adding to final response
 		finalResponse.push(singleResponseObj);
 	}
@@ -118,7 +124,18 @@ function getResponseJSONFromTwitterResponse(strTwitterResponse) {
 		singleResponseObj.CommentsCount = null;
 		singleResponseObj.LikesCount = tweet.favorite_count;
 		singleResponseObj.RetweetCount = tweet.retweet_count;
-
+		
+		singleResponseObj.Marker = {};
+		if (tweet.coordinates != null) {
+			singleResponseObj.Marker.latitude = tweet.coordinates.coordinates[1];
+			singleResponseObj.Marker.longitude = tweet.coordinates.coordinates[0];
+			singleResponseObj.Marker.title = tweet.user.screen_name;
+		} else {
+			singleResponseObj.Marker.latitude = null;
+			singleResponseObj.Marker.longitude = null;
+			singleResponseObj.Marker.title = null;
+		}
+		
 		// adding to final response
 		finalResponse.push(singleResponseObj);
 	}

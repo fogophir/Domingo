@@ -8,7 +8,7 @@ function getTweets(accessToken, searchParams, callback) {
 	
 	// Build query params for twitter
 	if (searchParams.hasOwnProperty('q')) {
-		queryParams = 'q=%23' + searchParams.q;
+		queryParams = '%23' + searchParams.q;
 	}
 	// Build geolocation param if needed
 	// TODO - allow custom radius 
@@ -19,8 +19,9 @@ function getTweets(accessToken, searchParams, callback) {
 	// An object of options to indicate where to post to
 	var get_options = {
 		host : 'api.twitter.com',
-		path : '/1.1/search/tweets.json?' + queryParams
-				+ '&result_type=recent&count=10',
+		path : '/1.1/search/tweets.json?q=' + queryParams
+//				+ '&result_type=recent'
+				+ '&count=30',
 		port : '443',
 		method : 'GET',
 		headers : {
